@@ -135,22 +135,7 @@ jobs:
           DEFAULT_BRANCH: ${{ env.DEFAULT_BRANCH }}
           # setting this to false means that only changed files will be scanned in each commit
           VALIDATE_ALL_CODEBASE: ${{ !contains(github.event_name, 'pull_request') }}
-          # turn off dockerfilelint, as its a dead project
-          # https://github.com/replicatedhq/dockerfilelint/issues/169
-          # hadolint will still run and is sufficient (no need for two linters)
-          VALIDATE_DOCKERFILE: false
-          # turn off JSCPD copy/paste detection, which results in lots of results for examples and devops repos
-          VALIDATE_JSCPD: false
-          # turn off shfmt shell formatter as we already have shellcheck
-          VALIDATE_SHELL_SHFMT: false
-          # editorconfig is great, but...
-          # editorconfig-linter is rather generic and file-specific linters are better
-          # turn off editorconfig-checker, which flags too many false positives
-          VALIDATE_EDITORCONFIG: false
-          
-          VALIDATE_YAML: false
-          VALIDATE_YAML_PRETTIER: false
-          VALIDATE_GITHUB_ACTIONS_ZIZMORE: false
+          # C/C++-focused configuration: only enable C/C++ linters
           VALIDATE_CPP: true
           VALIDATE_CLANG_FORMAT: true
           # Only lint typical C++ source directories
