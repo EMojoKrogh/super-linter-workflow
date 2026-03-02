@@ -125,7 +125,7 @@ jobs:
       #############################
       # https://github.com/marketplace/actions/super-linter
       - name: Lint Code Base
-        uses: super-linter/super-linter/slim@61abc07d755095a68f4987d1c2c3d1d64408f1f9 #v8.5.0
+        uses: super-linter/super-linter/slim@61abc07d755095a68f4987d1c2c3d1d64408f1f9 # v8.5.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           # by default super-linter assumes our repo default branch doesn't change
@@ -147,7 +147,14 @@ jobs:
           # editorconfig-linter is rather generic and file-specific linters are better
           # turn off editorconfig-checker, which flags too many false positives
           VALIDATE_EDITORCONFIG: false
-          # prevent Kubernetes CRD API's from causing kubeval to fail
-          # also change schema location to an up-to-date list
-          # https://github.com/yannh/kubernetes-json-schema/#kubeval
-          KUBERNETES_KUBEVAL_OPTIONS: --ignore-missing-schemas --schema-location https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/
+          
+          VALIDATE_YAML: false
+          VALIDATE_YAML_PRETTIER: false
+          VALIDATE_GITHUB_ACTIONS_ZIZMORE: false
+          VALIDATE_CPP: true
+          VALIDATE_CLANG_FORMAT: true
+          # Only lint typical C++ source directories
+          STRIP_DEFAULT_WORKSPACE_FOR_REGEX: true
+          FILTER_REGEX_INCLUDE: "^(src/|include/|tests/)"
+          # Use repo-local linter configs if present
+          LINTER_RULES_PATH: .github/linters

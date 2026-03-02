@@ -31,9 +31,8 @@ jobs:
 
     uses: ./.github/workflows/reusable-super-linter.yaml
     with:
-      # for a sample repo, avoid picking on the Dockerfile
       extra-envs: |
-        VALIDATE_TRIVY=false
-        VALIDATE_DOCKERFILE_HADOLINT=false
-      # For a DevOps-focused repository. Prevents some code-language linters from running
-      devops-only: true
+        VALIDATE_CPP=true
+        VALIDATE_CLANG_FORMAT=true
+      # For a C++-focused repository; don't enable DevOps-only overrides
+      devops-only: false
