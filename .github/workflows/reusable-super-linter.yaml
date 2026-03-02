@@ -77,7 +77,7 @@ jobs:
       # used as a debug step to ensure we're only linting all files on release branches
       - name: Are we linting all files?
         run: |
-          echo VALIDATE_ALL_CODEBASE=${{ !contains(github.event_name, 'pull_request') }}
+          echo VALIDATE_ALL_CODEBASE=true
 
       # customize excluded paths and files with regex
       - name: FILTER_REGEX_EXCLUDE
@@ -133,8 +133,8 @@ jobs:
           # for multi-trunk (releases) repos, this get the base branch from the previous steps
           # see issue https://github.com/github/super-linter/issues/1123
           DEFAULT_BRANCH: ${{ env.DEFAULT_BRANCH }}
-          # setting this to false means that only changed files will be scanned in each commit
-          VALIDATE_ALL_CODEBASE: ${{ !contains(github.event_name, 'pull_request') }}
+          # always lint the entire codebase
+          VALIDATE_ALL_CODEBASE: true
           # C/C++-focused configuration: only enable C/C++ linters
           VALIDATE_CPP: true
           VALIDATE_CLANG_FORMAT: true
